@@ -5,7 +5,6 @@ import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-import ContentScreen from './ContentScreen';
 
 import LoginScreen from './Loginscreen'
 import RaisedButton from 'material-ui/RaisedButton';
@@ -19,11 +18,7 @@ class Dashboard extends Component {
     this.role = props.role;
     this.state = {draweropen: false,currentScreen:[]};
   }
-  componentDidMount(){
-    var currentScreen=[];
-    currentScreen.push(<ContentScreen appContext={this.props.appContext} role={this.props.role} userId={this.props.userId}/>);
-    this.setState({currentScreen})
-  }
+
   /**
    * Toggle opening and closing of drawer
    * @param {*} event
@@ -39,7 +34,7 @@ class Dashboard extends Component {
       case "openprint":
       // console.log("need to open uploadapge")
       var currentScreen=[];
-      currentScreen.push(<ContentScreen appContext={this.props.appContext} role={this.props.role} userId={this.props.userId}/>);
+     
       this.setState({currentScreen})
       break;
       case "openpast":
