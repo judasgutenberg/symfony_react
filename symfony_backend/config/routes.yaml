@@ -1,0 +1,13 @@
+user_list:
+  type: rest
+  resource: routes\user_routes.yaml
+
+  
+user_get:
+  path: "/user/{id}"
+  controller: App\Controller\UserController:get
+  
+  
+shift_list:
+  path: "/list/{userId}"
+  controller: App\Controller\ListController:list
