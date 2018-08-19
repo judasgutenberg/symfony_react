@@ -23,11 +23,9 @@ The employee/manager dropdowns in the ShiftEditor (in the React frontend) can be
 In the backend if you want to get this working, Symfony is going to need some additional components.  In particular, you should use composer to install the rest-bundle, the doctrine-cache-bundle, and a few other things:
 
 _composer require friendsofsymfony/rest-bundle_
-
 _composer require symfony/serializer_
-
 _composer require doctrine/doctrine-cache-bundle_
-
+_composer require doctrine/doctrine-bundle_
 _composer require sensio/framework-extra-bundle_
 
 React also needs some modules: cookiejar, formidable, superagent, and attr-accept
