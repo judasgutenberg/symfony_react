@@ -32,7 +32,7 @@ _composer require doctrine/doctrine-bundle_
 
 _composer require sensio/framework-extra-bundle_ 
 
-_composer require doctrine/migrations-bundle_
+_composer require doctrine/doctrine-migrations-bundle_
 
 React also needs some modules: cookiejar, formidable, superagent, and attr-accept
 
