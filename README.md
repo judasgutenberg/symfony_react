@@ -41,6 +41,6 @@ React also needs some modules: cookiejar, formidable, superagent, and attr-accep
 The React frontend is hardcoded to the Symfony backend at "http://localhost:8000/api/" -- to change that, edit line 15 of /src/App.js
 The connection info for the Symfony database is in /.env, line 27.
 
-To see this app working live on the web, the url is http://randomsprocket.com/sched/public
+To see this app working live on the web, the url is http://randomsprocket.com/sched_frontend/
 
 --Gus Mueller, August 18 2018
