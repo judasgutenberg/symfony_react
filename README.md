@@ -36,6 +36,8 @@ _composer require doctrine/doctrine-migrations-bundle_
 
 _composer require symfony/security-bundle_
 
+(Depending on your Symfony setup, you could spend all day installing bundles this way!)
+
 React also needs some modules: cookiejar, formidable, superagent, and attr-accept
 
 The React frontend is hardcoded to the Symfony backend at "http://localhost:8000/api/" -- to change that, edit line 15 of /src/App.js
