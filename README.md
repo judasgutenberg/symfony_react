@@ -20,13 +20,15 @@ The display of shifts is very basic. In a better system, there would be multiple
 
 The employee/manager dropdowns in the ShiftEditor (in the React frontend) can be a bit wonky. In theory they should work beautifully, but there seems to be a bug in the module I went with. Sometimes you have to play with it a bit to get the right user to appear.
 
-In the backend if you want to get this working, Symfony is going to need some additional components.  In particular, you should use composer to install the rest-bundle, the doctrine-cache-bundle
+In the backend if you want to get this working, Symfony is going to need some additional components.  In particular, you should use composer to install the rest-bundle, the doctrine-cache-bundle, and a few other things:
 
 _composer require friendsofsymfony/rest-bundle_
 
 _composer require symfony/serializer_
 
 _composer require doctrine/doctrine-cache-bundle_
+
+_composer require sensio/framework-extra-bundle_
 
 React also needs some modules: cookiejar, formidable, superagent, and attr-accept
 
