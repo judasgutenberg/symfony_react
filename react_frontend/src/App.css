@@ -1,3 +1,20 @@
+a:link {
+    color: #005c74;
+}
+
+a:visited {
+    color: #005c74;
+}
+
+a:hover {
+    color: #00bcd4;
+}
+
+a:active {
+    color: #006600;
+}
+
+
 .App {
   text-align: center;
   font-size:11px;
@@ -12,6 +29,11 @@
   margin-right:15px;
 }
 
+.functionButton {
+  margin-top:10px;
+  margin-left:5px;
+  margin-right:5px;
+}
 
 th {
   font-weight: bold;

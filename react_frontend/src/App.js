@@ -14,7 +14,6 @@ import ShiftBrowseForm from './ShiftBrowseForm';
 //the base url of our symfony-based backend
 const apiBaseUrl ="http://localhost:8000/api/";
 
-
 class App extends Component {
   constructor(props){
     super(props);
@@ -31,11 +30,8 @@ class App extends Component {
   componentWillMount(){
     var loginPage =[];
     loginPage.push(<LoginScreen appContext={this}/>);
-    this.setState({
-                  loginPage:loginPage
-                    })
+    this.setState({loginPage:loginPage})
   }
-
 
   /*
     Function:showUserShifts
@@ -49,7 +45,6 @@ class App extends Component {
     var payload={};
     axios.get(apiBaseUrl+'usershifts/' + this.userId, payload)
    .then(function (response) {
-
      if(response.data.length>0){
        var shiftListLabel = "Your Shifts";
        console.log(self.role);
@@ -65,6 +60,7 @@ class App extends Component {
 
         }
         self.setState({loginPage:[],contentScreen:shiftList})
+        self.setState({contentDetails:[]})
      } else {
        console.log("some error ocurred",response.data.error);
        alert(response.data.error);
@@ -73,7 +69,6 @@ class App extends Component {
     .catch(function (error) {
      alert(error);
      console.log(error);
-
     });
   }
 
@@ -81,6 +76,7 @@ class App extends Component {
     var self = this;
     var shiftEditor = <ShiftBrowseForm  appContext={self} userId={self.userId}/>;
     self.setState({contentDetails:shiftEditor})
+    self.setState({contentScreen:[]})
   }
 
   createShift(event){
@@ -93,6 +89,7 @@ class App extends Component {
           console.log("got the shift details");
         var shiftEditor = <ShiftEditor  appContext={self} data={response.data} userId={self.userId}/>;
         self.setState({contentDetails:shiftEditor})
+        self.setState({contentScreen:[]})
       }
     });
   }
@@ -120,8 +117,7 @@ class App extends Component {
     var title="Dashboard";
     var showShiftsButton = '';
     var extraButton =
-      <RaisedButton  label='Weekly Summary Report' primary={true}  onClick={(event) => this.weeklySummaryReport(event)}/>
-
+      <RaisedButton className='functionButton' label='Weekly Summary Report' primary={true}  onClick={(event) => this.weeklySummaryReport(event)}/>
 
     if(this.userName!='') {
       title+=" for " + this.userName;
@@ -129,13 +125,13 @@ class App extends Component {
       if(this.role=='manager'){
         extraButton =
         <span>
-          <RaisedButton  label='Create Shift' primary={true}  onClick={(event) => this.createShift(event)}/>
-          <RaisedButton  label='Browse Schedule By Date Range' primary={true}  onClick={(event) => this.shiftBrowseForm(event)}/>
+          <RaisedButton className='functionButton' label='Create Shift' primary={true}  onClick={(event) => this.createShift(event)}/>
+          <RaisedButton className='functionButton' label='Browse Schedule By Date Range' primary={true}  onClick={(event) => this.shiftBrowseForm(event)}/>
         </span>
       }
       showShiftsButton =
       <MuiThemeProvider>
-           <RaisedButton  label={butttonLabel} primary={true}  onClick={(event) => this.showUserShifts(event)}/>
+           <RaisedButton className='functionButton' label={butttonLabel} primary={true}  onClick={(event) => this.showUserShifts(event)}/>
            {extraButton}
       </MuiThemeProvider>
     }

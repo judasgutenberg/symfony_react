@@ -29,11 +29,9 @@ class ShiftEditor extends React.Component {
         break:''
       }
     }
-
   }
 
   saveShift(event){
-
     var butttonLabel = "My Shifts";
     if(this.role=='manager') {
       butttonLabel = "Shift Browser";
@@ -67,6 +65,27 @@ class ShiftEditor extends React.Component {
         console.log("Shift saved!");
         self.props.appContext.setState({contentDetails:['Shift saved']})
         self.props.appContext.setState({loginPage:[],contentScreen:[]
+        })
+        //alert("Shift saved!");
+       } else {
+         console.log("some error ocurred",response.data.error);
+         alert(response.data.error);
+       }
+    })
+    .catch(function (error) {
+     //alert(error);
+     console.log(error);
+    });
+
+  } else {
+    console.log(payload);
+    axios.post(fullUrl, payload)
+     .then(function (response) {
+       console.log(response);
+       if(response.data.code === 200){
+        console.log("Shift saved!");
+        self.props.appContext.setState({contentDetails:['Shift saved']})
+        self.props.appContext.setState({loginPage:[],contentScreen:[]
 
         })
         //alert("Shift saved!");
@@ -74,34 +93,11 @@ class ShiftEditor extends React.Component {
          console.log("some error ocurred",response.data.error);
          alert(response.data.error);
        }
-  })
-  .catch(function (error) {
+
+
+  }).catch(function (error) {
    //alert(error);
    console.log(error);
-  });
-
-    } else {
-      console.log(payload);
-      axios.post(fullUrl, payload)
-       .then(function (response) {
-         console.log(response);
-         if(response.data.code === 200){
-          console.log("Shift saved!");
-          self.props.appContext.setState({contentDetails:['Shift saved']})
-          self.props.appContext.setState({loginPage:[],contentScreen:[]
-
-          })
-          //alert("Shift saved!");
-         } else {
-           console.log("some error ocurred",response.data.error);
-           alert(response.data.error);
-         }
-
-
-    })
-    .catch(function (error) {
-     //alert(error);
-     console.log(error);
 
     });
   }
