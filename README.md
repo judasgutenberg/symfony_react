@@ -34,6 +34,8 @@ _composer require sensio/framework-extra-bundle_
 
 _composer require doctrine/doctrine-migrations-bundle_
 
+_composer require symfony/security-bundle_
+
 React also needs some modules: cookiejar, formidable, superagent, and attr-accept
 
 The React frontend is hardcoded to the Symfony backend at "http://localhost:8000/api/" -- to change that, edit line 15 of /src/App.js
