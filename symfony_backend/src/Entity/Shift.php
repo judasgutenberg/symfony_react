@@ -85,7 +85,7 @@ class Shift extends Model
         return $this->managerId;
     }
 
-    public function setManagerId(int $managerId): self
+    public function setManagerId(?int $managerId): self
     {
         $this->managerId = $managerId;
 
@@ -97,7 +97,7 @@ class Shift extends Model
         return $this->employeeId;
     }
 
-    public function setEmployeeId(int $employeeId): self
+    public function setEmployeeId(?int $employeeId): self
     {
         $this->employeeId = $employeeId;
 
