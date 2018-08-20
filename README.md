@@ -44,9 +44,5 @@ In the provided source code, the React frontend is hardcoded to the Symfony back
 The connection info for the Symfony database is in /.env, line 27.
 
 To see this app working live on the web, the url is http://randomsprocket.com/sched_frontend/
-It's possible you will need to install the Allow-Control-Allow-Origin plugin in Chrome (because the backend is on a different subdomain from the frontend). Get that here:
-
-https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
-
 
 --Gus Mueller, August 18 2018
