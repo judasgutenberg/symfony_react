@@ -48,7 +48,9 @@ The live backend (should you like to see the JSON) is at http://sched.randomspro
 Some endpoints include:
 
 http://sched.randomsprocket.com/api/user
+
 http://sched.randomsprocket.com/api/user/1
+
 http://sched.randomsprocket.com/api/user/weeklysummary/1
 
 
