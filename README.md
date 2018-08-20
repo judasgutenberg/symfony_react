@@ -16,6 +16,8 @@ An employee login to try is gus@asecular.com/1111  .
 
 A manager login to try is oscarpoof@dribble.org/1111  .
 
+Log out by reloading the page (being logged in is just part of the React state;  there is no cookie or session).
+
 The display of shifts is very basic. In a better system, there would be multiple views and calendars and such, but that would've taken awhile to get working nice.
 
 Editing the times and dates is done with a simple text input. Ideally, it would be with a calendar and clock and even (perhaps) relative time inputs (one hour ago, one day ago, one week from now, etc.), but I couldn't find a usable React module to do what I wanted, and it would take awhile to build something ideal.
