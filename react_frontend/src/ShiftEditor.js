@@ -31,79 +31,74 @@ class ShiftEditor extends React.Component {
     }
   }
 
-  saveShift(event){
-    var butttonLabel = "My Shifts";
-    if(this.role=='manager') {
-      butttonLabel = "Shift Browser";
+  displayShiftData(response) {
+      console.log(response);
+      if(response.data.code === 200){
+       console.log("Shift saved!");
+       this.props.appContext.setState({contentDetails:['Shift saved']})
+       this.props.appContext.setState({loginPage:[],contentScreen:[]});
+      } else {
+        console.log("some error ocurred",response.data.error);
+        alert(response.data.error);
+      }
     }
 
-    var self = this;
-    console.log(this.state)
-    var payload={
-    "manager_id": this.state.manager_id,
-    "employee_id":this.state.employee_id,
-    //value = {new Date(this.state.start_time).toString().split(' GMT')[0]}
-    "start_time":this.state.start_time,
-    "end_time":this.state.end_time,
-    "break":this.state.break,
-    }
+    saveShift(event){
+      var butttonLabel = "My Shifts";
+      if(this.role=='manager') {
+        butttonLabel = "Shift Browser";
+      }
 
-    var restMethod = 'POST';
-    var fullUrl = this.props.appContext.apiBaseUrl+'shift/save';
-    if(this.data.shift && this.data.shift.id){
-      fullUrl+="/"+ this.data.shift.id
-      restMethod = 'PUT';
-    }
-    console.log(payload);
+      var self = this;
+      console.log(this.state)
+      var managerId = this.state.manager_id;
+      var employee_id = this.state.employee_id;
+      //the backend does not like to get '' -- it wants null
+      if(managerId == '') {
+        managerId = null;
+      }
+      if(employee_id == '') {
+        employee_id = null;
+      }
+      var payload={
+        "manager_id": managerId,
+        "employee_id":employee_id,
+        //value = {new Date(this.state.start_time).toString().split(' GMT')[0]}
+        "start_time":this.state.start_time,
+        "end_time":this.state.end_time,
+        "break":this.state.break,
+      }
+
+      var restMethod = 'POST';
+      var fullUrl = this.props.appContext.apiBaseUrl+'shift/save';
+      if(this.data.shift && this.data.shift.id){
+        fullUrl+="/"+ this.data.shift.id
+        restMethod = 'PUT';
+      }
+      console.log(payload);
 
     if(restMethod == 'PUT') {
-      //there's probably a way not to have to duplicate the code blocks for post and put but i can't see how to
-    axios.put(fullUrl, payload)
-     .then(function (response) {
-       console.log(response);
-       if(response.data.code === 200){
-        console.log("Shift saved!");
-        self.props.appContext.setState({contentDetails:['Shift saved']})
-        self.props.appContext.setState({loginPage:[],contentScreen:[]
-        })
-        //alert("Shift saved!");
-       } else {
-         console.log("some error ocurred",response.data.error);
-         alert(response.data.error);
-       }
-    })
-    .catch(function (error) {
-     //alert(error);
-     console.log(error);
-    });
+        //i wish axios let me pass in push or post as a parameter instead of making me make two code blocks
+        axios.put(fullUrl, payload)
+       .then(function (response) {
+         console.log(response);
+         self.displayShiftData(response);
+       })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-  } else {
-    console.log(payload);
-    axios.post(fullUrl, payload)
-     .then(function (response) {
-       console.log(response);
-       if(response.data.code === 200){
-        console.log("Shift saved!");
-        self.props.appContext.setState({contentDetails:['Shift saved']})
-        self.props.appContext.setState({loginPage:[],contentScreen:[]
-
-        })
-        //alert("Shift saved!");
-       } else {
-         console.log("some error ocurred",response.data.error);
-         alert(response.data.error);
-       }
-
-
-  }).catch(function (error) {
-   //alert(error);
-   console.log(error);
-
-    });
+    } else {
+      console.log(payload);
+      axios.post(fullUrl, payload)
+       .then(function (response) {
+          self.displayShiftData(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }
-
-
-}
 
   render() {
     const style = {

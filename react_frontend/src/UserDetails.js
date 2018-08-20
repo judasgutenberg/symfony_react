@@ -13,22 +13,7 @@ class UserDetails extends React.Component {
     this.userId = props.userId;
   }
 
-  /*
-    Function:showUserInfo
-    Parameters: event, userId
-    Usage:gives info about a user
-  */
-  showUserInfo(event, userId){
-    var self = this;
-    console.log(userId);
-    self.props.appContext.setState({contentDetails:['loading...']})
-    axios.get(self.props.appContext.apiBaseUrl+ 'user/' + userId,{})
-    .then(function (response) {
-      var shiftEditor = <UserDetails  appContext={self.props.appContext} data={response.data} userId={self.userId}/>;
-      self.props.appContext.setState({contentDetails:shiftEditor})
-
-    });
-  }
+ 
 
   render() {
     var phoneMarkup = "no phone"

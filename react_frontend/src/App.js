@@ -25,6 +25,7 @@ class App extends Component {
     this.userName= "";
     this.userId= "";
     this.role = "";
+
   }
 
   componentWillMount(){
