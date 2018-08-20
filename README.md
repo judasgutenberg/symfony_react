@@ -44,5 +44,12 @@ In the provided source code, the React frontend is hardcoded to access the Symfo
 The connection info for the Symfony database is in /.env, line 27.
 
 To see this app working live on the web, the url is http://randomsprocket.com/sched_frontend/
+The live backend (should you like to see the JSON) is at http://sched.randomsprocket.com/api
+Some endpoints include:
+
+http://sched.randomsprocket.com/api/user
+http://sched.randomsprocket.com/api/user/1
+http://sched.randomsprocket.com/api/user/weeklysummary/1
+
 
 --Gus Mueller, August 18 2018
