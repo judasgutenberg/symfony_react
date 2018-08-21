@@ -85,7 +85,17 @@ class Shift extends React.Component {
 
 }
 
-//Sat Apr 12 2014 12:22:00 GMT+1000 is the format we need
+//Sat Apr 12 2014 12:22:00 is the format we need
+  displayDate(sqlDateString) {
+    //if we use .toString and cut off the timezone info, it will be off by however many hours GMT is
+    //so we add the offset (which is in minutes) to the raw timestamp
+    var dateObj = new Date(sqlDateString)
+    var offset = dateObj.getTimezoneOffset();
+    dateObj.setTime(dateObj.getTime() + (offset*60*1000));
+    return dateObj.toString().split(' GMT')[0];
+  }
+
+
 
   render() {
     console.log(this.data);
@@ -106,7 +116,7 @@ class Shift extends React.Component {
         <div className="shift">
           <div>
 
-          <span class='dateRange'>{new Date(this.data.start_time).toString().split(' GMT')[0]}  to  {new Date(this.data.end_time).toString().split(' GMT')[0]}</span>
+          <span class='dateRange'>{this.displayDate(this.data.start_time)}  to  {this.displayDate(this.data.end_time)}</span>
           {employeeName}
           </div>
         </div>
