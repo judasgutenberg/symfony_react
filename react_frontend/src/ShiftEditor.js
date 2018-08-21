@@ -100,6 +100,15 @@ class ShiftEditor extends React.Component {
     }
   }
 
+  //makes the date as simple as possible for editing
+  showDateInForm(dateStringIn) {
+    var out = dateStringIn.split('+')[0].replace('T', ' ');
+    if(out.length>19) {
+      out = out.substr(0,19);
+    }
+    return out;
+  }
+
   render() {
     const style = {
       margin: 15,
@@ -139,14 +148,14 @@ class ShiftEditor extends React.Component {
            <TextField
              hintText="When the shift begins"
              floatingLabelText="Start Time"
-             value = {this.state.start_time.split('+')[0].replace('T', ' ')}
+             value = {this.showDateInForm(this.state.start_time)}
              onChange = {(event,newValue) => this.setState({start_time:newValue})}
              />
            <br/>
            <TextField
              hintText="When the shift enda"
              floatingLabelText="End Time"
-             value = {this.state.end_time.split('+')[0].replace('T', ' ')}
+             value = {this.showDateInForm(this.state.end_time)}
              onChange = {(event,newValue) => this.setState({end_time:newValue})}
              />
            <br/>
