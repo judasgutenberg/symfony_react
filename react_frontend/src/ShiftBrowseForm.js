@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
-import TextField from 'material-ui/TextField';
+import DatePicker from 'react-date-picker';
 import MenuItem from 'material-ui/MenuItem';
 import Shift from './Shift';
 
@@ -18,6 +18,19 @@ class ShiftBrowseForm extends React.Component {
   }
 
   /*
+    Function:cleanupDate(dateString)
+    Parameters: dateString
+    Usage:takes a messy javascript date and makes it usable by the backend
+  */
+  cleanupDate(dateString){
+    var jsDate = new Date(dateString);
+    var month = jsDate.getMonth() + 1;
+    var year = jsDate.getFullYear();
+    var day = jsDate.getDate();
+    return year + '-' + month + '-' + day;
+  }
+
+  /*
     Function:narrowDateRange
     Parameters: event
     Usage:uses the date range to narrow the returned schedule data
@@ -26,8 +39,11 @@ class ShiftBrowseForm extends React.Component {
       var request = require('superagent');
       console.log("showUserShifts",this.userId);
       var self = this;
-      axios.get(self.props.appContext.apiBaseUrl+'shift/range/' + this.state.start_time + '/' +  this.state.end_time, {})
+      var start_time = this.cleanupDate(this.state.start_time);
+      var end_time = this.cleanupDate(this.state.end_time);
+      axios.get(self.props.appContext.apiBaseUrl+'shift/range/' + start_time + '/' +  end_time, {})
      .then(function (response) {
+       console.log(response);
        if(response.data.length>0){
          var shiftListLabel = "Shift List";
           let shiftList=[];
@@ -39,8 +55,8 @@ class ShiftBrowseForm extends React.Component {
           }
           self.props.appContext.setState({loginPage:[],contentScreen:shiftList})
        } else {
-         console.log("some error ocurred",response.data.error);
-         alert(response.data.error);
+         var message = <div className='message'>No shifts were found.</div>
+         self.props.appContext.setState({loginPage:[],contentScreen:message})
        }
     })
       .catch(function (error) {
@@ -52,31 +68,42 @@ class ShiftBrowseForm extends React.Component {
 
 
   render() {
-
+    const style = {
+      margin: 15,
+    };
     return (
         <div className="shiftEditor">
-        <h2>Shift Browser Range Limiter</h2>
+        <h2>View Shifts In A Date Range</h2>
         <MuiThemeProvider>
-          <div>
-           <TextField
-             hintText="Beginning of date range"
-             floatingLabelText="Start Time"
-             value = {this.state.start_time}
-             onChange = {(event,newValue) => this.setState({start_time:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="End of date range"
-             floatingLabelText="End Time"
-             value = {this.state.end_time}
-             onChange = {(event,newValue) => this.setState({end_time:newValue})}
-             />
-           <br/>
-           <RaisedButton label="Show" primary={true}   onClick={(event) => this.narrowDateRange(event)}/>
-          </div>
+          <table>
+          <tr className='labledFormRow'>
+          <td className='formLabel'>Start Date</td>
+          <td className='formInput'>
+            <DatePicker
+              className = 'dateTimePicker'
+              value = {new Date(this.state.start_time)}
+              onChange = {(value) => this.setState({start_time:value})}
+              />
+          </td>
+          </tr>
+          <tr className='labledFormRow'>
+          <td className='formLabel'>End Date</td>
+          <td className='formInput'>
+            <DatePicker
+            className = 'dateTimePicker'
+            value = {new Date(this.state.end_time)}
+            onChange = {(value) => this.setState({end_time:value})}
+            />
+          </td>
+          </tr>
+          <tr colspan='2'>
+          <td>
+           <RaisedButton label="Show" primary={true} style={style} onClick={(event) => this.narrowDateRange(event)}/>
+          </td>
+          </tr>
+         </table>
          </MuiThemeProvider>
-        </div>
-
+         </div>
     );
   }
 }
