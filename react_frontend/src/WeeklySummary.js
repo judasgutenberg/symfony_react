@@ -12,7 +12,7 @@ class WeeklySummary extends React.Component {
   weekBegin(thisYear, week) {
     //week=2;
     //thisYear = 2020;
-    var baseDate = new Date(thisYear, 0, 1 + 7*(week-1));
+    var baseDate = new Date(thisYear, 0, 1 + 7*(week));
     const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
