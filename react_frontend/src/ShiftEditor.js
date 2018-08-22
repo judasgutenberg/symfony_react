@@ -35,53 +35,53 @@ class ShiftEditor extends React.Component {
   }
 
   displayShiftData(response) {
-      console.log(response);
-      if(response.data.code === 200){
-       console.log("Shift saved!");
-       this.props.appContext.setState({contentDetails:this.shiftSaved})
-       this.props.appContext.setState({loginPage:[],contentScreen:[]});
-      } else {
-        console.log("some error ocurred",response.data.error);
-        alert(response.data.error);
-      }
+    console.log(response);
+    if(response.data.code === 200){
+     console.log("Shift saved!");
+     this.props.appContext.setState({contentDetails:this.shiftSaved})
+     this.props.appContext.setState({loginPage:[],contentScreen:[]});
+    } else {
+      console.log("some error ocurred",response.data.error);
+      alert(response.data.error);
+    }
+  }
+
+  saveShift(event){
+    var butttonLabel = "My Shifts";
+    if(this.role=='manager') {
+      butttonLabel = "Shift Browser";
     }
 
-    saveShift(event){
-      var butttonLabel = "My Shifts";
-      if(this.role=='manager') {
-        butttonLabel = "Shift Browser";
-      }
+    var self = this;
+    var managerId = this.state.manager_id;
+    var employee_id = this.state.employee_id;
+    var breakVal = this.state.break;
+    //the backend does not like to get '' -- it wants null
+    if(managerId == '') {
+      managerId = null;
+    }
+    if(employee_id == '') {
+      employee_id = null;
+    }
 
-      var self = this;
-      var managerId = this.state.manager_id;
-      var employee_id = this.state.employee_id;
-      var breakVal = this.state.break;
-      //the backend does not like to get '' -- it wants null
-      if(managerId == '') {
-        managerId = null;
-      }
-      if(employee_id == '') {
-        employee_id = null;
-      }
+    if(breakVal == '' || breakVal == null) {
+      breakVal = 0; //the backend doesn't like nulls for break
+    }
+    var payload={
+      "manager_id": managerId,
+      "employee_id":employee_id,
+      "start_time":this.state.start_time,
+      "end_time":this.state.end_time,
+      "break":breakVal,
+    }
 
-      if(breakVal == '' || breakVal == null) {
-        breakVal = 0; //the backend doesn't like nulls for break
-      }
-      var payload={
-        "manager_id": managerId,
-        "employee_id":employee_id,
-        "start_time":this.state.start_time,
-        "end_time":this.state.end_time,
-        "break":breakVal,
-      }
-
-      var restMethod = 'POST';
-      var fullUrl = this.props.appContext.apiBaseUrl+'shift/save';
-      if(this.data.shift && this.data.shift.id){
-        fullUrl+="/"+ this.data.shift.id
-        restMethod = 'PUT';
-      }
-      console.log(payload);
+    var restMethod = 'POST';
+    var fullUrl = this.props.appContext.apiBaseUrl+'shift/save';
+    if(this.data.shift && this.data.shift.id){
+      fullUrl+="/"+ this.data.shift.id
+      restMethod = 'PUT';
+    }
+    this.props.appContext.setState({contentDetails:self.props.appContext.loading})
 
     //i wish axios let me pass in push or post as a parameter instead of making me make two code blocks
     if(restMethod == 'PUT') {

@@ -39,6 +39,7 @@ class ShiftBrowseForm extends React.Component {
       var request = require('superagent');
       console.log("showUserShifts",this.userId);
       var self = this;
+      self.props.appContext.setState({contentScreen:self.props.appContext.loading});
       var start_time = this.cleanupDate(this.state.start_time);
       var end_time = this.cleanupDate(this.state.end_time);
       axios.get(self.props.appContext.apiBaseUrl+'shift/range/' + start_time + '/' +  end_time, {})
@@ -62,7 +63,6 @@ class ShiftBrowseForm extends React.Component {
       .catch(function (error) {
        alert(error);
        console.log(error);
-
       });
   }
 
