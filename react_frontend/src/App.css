@@ -15,7 +15,7 @@ a:active {
 }
 
 .breakInput{
-  width:1000px
+  width:100px
 }
 
 .App {
@@ -103,7 +103,6 @@ h2 {
 
 .shiftEditor {
   border-style: solid; border-width:1px; border-radius:3px; border-color:#0066ff;background-color: #eeffff;
-
 }
 
 td {

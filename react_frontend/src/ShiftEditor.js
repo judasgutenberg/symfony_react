@@ -53,9 +53,9 @@ class ShiftEditor extends React.Component {
       }
 
       var self = this;
-      console.log(this.state)
       var managerId = this.state.manager_id;
       var employee_id = this.state.employee_id;
+      var breakVal = this.state.break;
       //the backend does not like to get '' -- it wants null
       if(managerId == '') {
         managerId = null;
@@ -63,13 +63,16 @@ class ShiftEditor extends React.Component {
       if(employee_id == '') {
         employee_id = null;
       }
+
+      if(breakVal == '' || breakVal == null) {
+        breakVal = 0; //the backend doesn't like nulls for break
+      }
       var payload={
         "manager_id": managerId,
         "employee_id":employee_id,
-        //value = {new Date(this.state.start_time).toString().split(' GMT')[0]}
         "start_time":this.state.start_time,
         "end_time":this.state.end_time,
-        "break":this.state.break,
+        "break":breakVal,
       }
 
       var restMethod = 'POST';
@@ -80,8 +83,8 @@ class ShiftEditor extends React.Component {
       }
       console.log(payload);
 
+    //i wish axios let me pass in push or post as a parameter instead of making me make two code blocks
     if(restMethod == 'PUT') {
-        //i wish axios let me pass in push or post as a parameter instead of making me make two code blocks
         axios.put(fullUrl, payload)
        .then(function (response) {
          console.log(response);
@@ -132,7 +135,6 @@ class ShiftEditor extends React.Component {
     if(type=='manager') {
       this.setState({manager_id:foundValue});
     } else {
-
       this.setState({employee_id:foundValue});
     }
   }

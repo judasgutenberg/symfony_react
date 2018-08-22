@@ -36,7 +36,6 @@ class WeeklySummary extends React.Component {
     )
     console.log(report);
     return (
-
         <div className="weeklySummary">
         <h2>Your Weekly Summary</h2>
           <table className='dataTable'>

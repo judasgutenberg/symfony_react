@@ -1,15 +1,11 @@
 
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
 import MenuItem from 'material-ui/MenuItem';
-
 import axios from 'axios';
 import Dashboard from './Dashboard';
-
 
 class Login extends Component {
   constructor(props){
@@ -44,14 +40,11 @@ class Login extends Component {
     }
   }
   componentWillMount(){
-  // console.log("willmount prop values",this.props);
-
     var localloginComponent=[];
     localloginComponent.push(
       <MuiThemeProvider>
         <div>
          <TextField
-
            floatingLabelText="Email"
            onChange = {(event,newValue) => this.setState({email:newValue})}
            />
@@ -68,9 +61,8 @@ class Login extends Component {
        </MuiThemeProvider>
     )
     this.setState({menuValue:1,loginComponent:localloginComponent,loginRole:'employee'})
-
-
   }
+
   handleClick(event){
     var self = this;
     var payload={

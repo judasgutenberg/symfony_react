@@ -6,7 +6,6 @@ import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import Login from './Login';
 
-
 class Register extends Component {
   constructor(props){
     super(props);
@@ -21,7 +20,6 @@ class Register extends Component {
     console.log("nextProps",nextProps);
   }
 
-
   handleClick(event,role){
     // console.log("values in register handler",role);
     var self = this;
@@ -29,10 +27,7 @@ class Register extends Component {
     if(this.state.password2 != this.state.password) {
       alert("Passwords must match!");
     } else {
-
-
       if(this.state.name.length>0  && this.state.password.length>0){
-
           var payload={
           "name": this.state.name,
           "email":this.state.email,
@@ -58,13 +53,10 @@ class Register extends Component {
              console.log("some error ocurred",response.data.error);
              alert(response.data.error);
            }
-
-
        })
        .catch(function (error) {
          alert(error);
          console.log(error);
-
        });
       } else {
         alert("Input field value is missing");

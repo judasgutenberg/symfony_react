@@ -27,7 +27,6 @@ class ShiftDetail extends React.Component {
     .then(function (response) {
       var shiftEditor = <UserDetails  appContext={self.props.appContext} data={response.data} userId={self.userId}/>;
       self.props.appContext.setState({contentDetails:shiftEditor})
-
     });
   }
 
@@ -38,7 +37,6 @@ class ShiftDetail extends React.Component {
       //employeeName=this.data.employee.name;
       employeeId=this.data.employee.id;
       employeeName = <a href='#' class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
-
     }
     var managerName = 'None';
     if(this.data.manager && this.data.manager.name) {
@@ -54,7 +52,6 @@ class ShiftDetail extends React.Component {
             Employee: {employeeName}; Manager: {managerName}
           </div>
         </div>
-
     );
   }
 }

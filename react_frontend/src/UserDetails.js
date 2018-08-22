@@ -3,8 +3,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 
-
-
 class UserDetails extends React.Component {
   constructor(props) {
     console.log(props);
@@ -12,8 +10,6 @@ class UserDetails extends React.Component {
     this.data = props.data;
     this.userId = props.userId;
   }
-
- 
 
   render() {
     var phoneMarkup = "no phone"
@@ -25,14 +21,12 @@ class UserDetails extends React.Component {
       emailMarkup = <span>Email: <a href={'mailto:' + this.data.email}>{this.data.email}</a></span>
     }
     return (
-
         <div className="shiftDetail">
         <h2>User Contact Information</h2>
           <div>
              {this.data.name} ({this.data.role}) -  {phoneMarkup} {emailMarkup}
           </div>
         </div>
-
     );
   }
 }
