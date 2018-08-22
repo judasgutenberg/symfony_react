@@ -35,6 +35,18 @@ a:active {
   margin-right:5px;
 }
 
+.message {
+  border-style: solid; border-width:1px; border-radius:12px;
+  font-size:18px;
+  width:400px;
+  margin:auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  padding: 10px;
+  background-color:#e2f2f2;
+  color: #cccccc;
+}
+
 th {
   font-weight: bold;
   padding-right: 10px;
@@ -71,19 +83,47 @@ td {
 
 }
 
-.employeeDropdown{
- font-size:10px
+.userDropdown{
+ height:20px;
+ margin-left:-20px;
+}
+
+.shiftEditor{
+
+  width:600px;
+  margin:auto;
+  margin-top:10px;
 }
 
 .labledFormRow{
- line-height:12px;
+ height: 40px;
+
+ margin:right;
+}
+
+.formInput{
+  text-align:left;
 }
 
 .formLabel{
+  margin-top:20px;
   vertical-align:top;
   display:inline-block;
   text-align:right;
+  padding-right:10px;
+  font-size:12px;
+  color: #cccccc;
   width:100px
+}
+
+
+.breakInput{
+  width:1000px
+}
+
+.dateTimePicker{
+  margin-top:15px
+
 }
 
 h2 {

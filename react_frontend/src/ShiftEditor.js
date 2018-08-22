@@ -5,12 +5,15 @@ import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import DateTimePicker from 'react-datetime-picker';
 
 class ShiftEditor extends React.Component {
+
   constructor(props) {
     console.log(props);
     super(props);
     this.data = props.data;
+    this.shiftSaved  = <div className='message'>Shift Saved!</div>;
     this.userId = props.userId;
     if(this.data.shift){
       this.state={
@@ -35,7 +38,7 @@ class ShiftEditor extends React.Component {
       console.log(response);
       if(response.data.code === 200){
        console.log("Shift saved!");
-       this.props.appContext.setState({contentDetails:['Shift saved']})
+       this.props.appContext.setState({contentDetails:this.shiftSaved})
        this.props.appContext.setState({loginPage:[],contentScreen:[]});
       } else {
         console.log("some error ocurred",response.data.error);
@@ -109,6 +112,32 @@ class ShiftEditor extends React.Component {
     return out;
   }
 
+  dropdownChange(event, value, type){
+    //value is coming in as the ordinal of the option in the dropdown, so i have to do a lookup!
+    var dataArray = this.data.employees;
+    if(type=='manager') {
+      dataArray = this.data.managers
+    }
+    var foundValue = null;
+    for(var i=0; i<dataArray.length; i++) {
+      if(i+1==value) { //have to add one because of the empty "option" at the beginning of the dropdown
+          console.log(dataArray[i].name);
+          foundValue = dataArray[i].id;
+          break;
+      }
+    }
+    if(value=='null') {
+      foundValue = null;
+    }
+    if(type=='manager') {
+      this.setState({manager_id:foundValue});
+    } else {
+
+      this.setState({employee_id:foundValue});
+    }
+  }
+  dropdownChange = this.dropdownChange.bind(this)
+
   render() {
     const style = {
       margin: 15,
@@ -120,52 +149,69 @@ class ShiftEditor extends React.Component {
     }
 
     return (
+        //the mix of different sources of inputs made this easiest to format as a classic html table
         <div className="shiftEditor">
         <h2>Shift Editor</h2>
         <MuiThemeProvider>
-          <div>
-            <div className='labledFormRow'>
-             <div className='formLabel'>Manager</div>
-            <DropDownMenu className='employeeDropdown'  value={this.state.manager_id} onChange={(event,newValue) => {this.setState({manager_id:newValue})   ;console.log(this.state.employee_id)  }}>
-              <MenuItem value='' primaryText='none' />
-              {this.data.managers.map((x,y)=><MenuItem key={y} value={x.id} primaryText={x.name} />)}
+          <table>
+            <tr className='labledFormRow'>
+             <td className='formLabel'>Manager</td>
+             <td className='formInput'>
+            <DropDownMenu className='userDropdown'  value={this.state.manager_id} onChange={(event,newValue) => {this.dropdownChange(event, newValue, 'manager')}}>
+              <MenuItem value={null} key='none' primaryText='none' />
+              {this.data.managers.map((x,y)=><MenuItem key={'key'+y} value={x.id} primaryText={x.name} />)}
             </DropDownMenu>
-          </div>
-          <div className='labledFormRow'>
-           <div className='formLabel'>Employee</div>
-           <DropDownMenu className='employeeDropdown'  value={this.state.employee_id} onChange={(event,newValue) => {this.setState({employee_id:newValue})}}>
-              <MenuItem value='' primaryText='none' />
-             {this.data.employees.map((x,y)=><MenuItem key={x.id} value={x.id} primaryText={x.name} />)}
+            </td>
+          </tr>
+          <tr className='labledFormRow'>
+           <td className='formLabel'>Employee</td>
+           <td className='formInput'>
+           <DropDownMenu className='userDropdown'  value={this.state.employee_id} onChange={(event,newValue) => {this.dropdownChange(event, newValue, 'employee')}}>
+              <MenuItem value={null} key='none' primaryText='none' />
+             {this.data.employees.map((x,y)=><MenuItem key={'key'+y} value={x.id} primaryText={x.name} />)}
            </DropDownMenu>
-           </div>
-           <TextField
-             hintText="I'm not really clear what break is and why it's a float!"
-             floatingLabelText="Break"
-             value = {this.state.break}
-             onChange = {(event,newValue) => this.setState({break:newValue})}
+           </td>
+           </tr>
+           <tr className='labledFormRow'>
+            <td className='formLabel'>Break</td>
+            <td className='formInput'>
+             <TextField
+              className = 'breakInput'
+               hintText="I'm not really clear what break is and why it's a float!"
+               value = {this.state.break}
+               onChange = {(event,newValue) => this.setState({break:newValue})}
+               />
+            </td>
+            </tr>
+           <tr className='labledFormRow'>
+           <td className='formLabel'>Start Time</td>
+           <td className='formInput'>
+             <DateTimePicker
+               className = 'dateTimePicker'
+               value = {new Date(this.state.start_time)}
+               onChange = {(value) => this.setState({start_time:value})}
+               />
+
+           </td>
+           </tr>
+           <tr className='labledFormRow'>
+           <td className='formLabel'>End Time</td>
+           <td className='formInput'>
+             <DateTimePicker
+             className = 'dateTimePicker'
+             value = {new Date(this.state.end_time)}
+             onChange = {(value) => this.setState({end_time:value})}
              />
-           <br/>
-           <TextField
-             hintText="When the shift begins"
-             floatingLabelText="Start Time"
-             value = {this.showDateInForm(this.state.start_time)}
-             onChange = {(event,newValue) => this.setState({start_time:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="When the shift enda"
-             floatingLabelText="End Time"
-             value = {this.showDateInForm(this.state.end_time)}
-             onChange = {(event,newValue) => this.setState({end_time:newValue})}
-             />
-           <br/>
-           <RaisedButton label="Save Shift" primary={true} style={style} onClick={(event) => this.saveShift(event)}/>
-          </div>
+           </td>
+           </tr>
+           <tr colspan='2'>
+           <td>
+            <RaisedButton label="Save Shift" primary={true} style={style} onClick={(event) => this.saveShift(event)}/>
+           </td>
+           </tr>
+          </table>
          </MuiThemeProvider>
-
-
         </div>
-
     );
   }
 }

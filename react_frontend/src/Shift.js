@@ -24,7 +24,7 @@ class Shift extends React.Component {
   showUserInfo(event, userId){
     var self = this;
     console.log(userId);
-    self.props.appContext.setState({contentDetails:['loading...']})
+    self.props.appContext.setState({contentDetails:self.props.appContext.loading})
     axios.get(self.props.appContext.apiBaseUrl+ 'user/' + userId,{})
     .then(function (response) {
       var shiftEditor = <UserDetails  appContext={self.props.appContext} data={response.data} userId={self.userId}/>;
@@ -50,7 +50,7 @@ class Shift extends React.Component {
     }
 
     console.log(self.props.appContext.apiBaseUrl);
-    self.props.appContext.setState({contentDetails:["loading..."]});
+    self.props.appContext.setState({contentDetails:self.props.appContext.loading});
     axios.get(self.props.appContext.apiBaseUrl+ 'shift/' + this.shiftId + endPointAddendum,{})
    .then(function (response) {
 
@@ -64,6 +64,9 @@ class Shift extends React.Component {
           let shiftDetails=[];
           shiftDetails.push(<h2>Others Working In This Shift</h2>);
           //iterate through your shifts and display a Shift Module for each one
+          if(response.data.overlaps.length<1) {
+            shiftDetails = <div className='message'>There are no others working during your shift.</div>
+          }
           for(var i=0; i<response.data.overlaps.length; i++){
             shiftDetails.push(<ShiftDetail parentContext={this} appContext={self.props.appContext} data={response.data.overlaps[i]}  userId={self.userId}/>);
           }
@@ -90,8 +93,10 @@ class Shift extends React.Component {
     //if we use .toString and cut off the timezone info, it will be off by however many hours GMT is
     //so we add the offset (which is in minutes) to the raw timestamp
     var dateObj = new Date(sqlDateString)
-    var offset = dateObj.getTimezoneOffset();
-    dateObj.setTime(dateObj.getTime() + (offset*60*1000));
+    var offset =  dateObj.getTimezoneOffset();
+    //offset += 300; //have to add 300 more to offset on production
+    //console.log(offset);
+    //dateObj.setTime(dateObj.getTime() + (offset*60*1000));
     return dateObj.toString().split(' GMT')[0];
   }
 

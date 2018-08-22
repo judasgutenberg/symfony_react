@@ -13,6 +13,7 @@ import ShiftBrowseForm from './ShiftBrowseForm';
 
 //the base url of our symfony-based backend
 const apiBaseUrl ="http://localhost:8000/api/";
+const loading = <div className='message'>Loading...</div>;
 
 class App extends Component {
   constructor(props){
@@ -22,11 +23,12 @@ class App extends Component {
       contentScreen:[]
     }
     this.apiBaseUrl= apiBaseUrl;
+    this.loading= loading;
     this.userName= "";
     this.userId= "";
     this.role = "";
-
   }
+
 
   componentWillMount(){
     var loginPage =[];
@@ -73,6 +75,18 @@ class App extends Component {
     });
   }
 
+  //logout the logged in user!
+  logOut(event) {
+    this.userName= "";
+    this.userId= "";
+    this.role = "";
+    var loginPage =[];
+    loginPage.push(<LoginScreen appContext={this}/>);
+    this.setState({loginPage:loginPage})
+    this.setState({contentDetails:[]})
+    this.setState({contentScreen:[]})
+  }
+
   shiftBrowseForm(event){
     var self = this;
     var shiftEditor = <ShiftBrowseForm  appContext={self} userId={self.userId}/>;
@@ -83,7 +97,7 @@ class App extends Component {
   createShift(event){
     var self = this;
     console.log(self.apiBaseUrl);
-    self.setState({contentDetails:["loading..."]});
+    self.setState({contentDetails:this.loading});
     axios.get(self.apiBaseUrl + 'shift/null/1')
      .then(function (response) {
        if(response.data){
@@ -98,7 +112,7 @@ class App extends Component {
   weeklySummaryReport(event){
     var self = this;
     console.log(self.apiBaseUrl);
-    self.setState({contentDetails:["loading..."]});
+    self.setState({contentDetails:this.loading});
     axios.get(self.apiBaseUrl + 'user/weeklysummary/' + this.userId)
      .then(function (response) {
        if(response.data){
@@ -131,10 +145,11 @@ class App extends Component {
         </span>
       }
       showShiftsButton =
-      <MuiThemeProvider>
-           <RaisedButton className='functionButton' label={butttonLabel} primary={true}  onClick={(event) => this.showUserShifts(event)}/>
+        <MuiThemeProvider>
+          <RaisedButton className='functionButton' label='Logout' primary={true}  onClick={(event) => this.logOut(event)}/>
+          <RaisedButton className='functionButton' label={butttonLabel} primary={true}  onClick={(event) => this.showUserShifts(event)}/>
            {extraButton}
-      </MuiThemeProvider>
+        </MuiThemeProvider>
     }
 
     return (
@@ -144,8 +159,9 @@ class App extends Component {
           </MuiThemeProvider>
           {showShiftsButton}
         {this.state.loginPage}
-        {this.state.contentScreen}<br/>
-        {this.state.contentDetails}
+        {this.state.contentDetails}<br/>
+        {this.state.contentScreen}
+
       </div>
     );
   }
