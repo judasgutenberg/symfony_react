@@ -18,11 +18,9 @@ A manager login to try is oscarpoof@dribble.org/1111  .
 
 Log out by reloading the page (being logged in is just part of the React state;  there is no cookie or session).
 
-The display of shifts is very basic. In a better system, there would be multiple views and calendars and such, but that would've taken awhile to get working nice.
+The display of shifts is very basic. In a better system, there would be multiple views and calendars and such, but that would've taken awhile to get working nice. It's possible to create overlapping shifts for the same user.
 
-Editing the times and dates is done with a simple text input. Ideally, it would be with a calendar and clock and even (perhaps) relative time inputs (one hour ago, one day ago, one week from now, etc.), but I couldn't find a usable React module to do what I wanted, and it would take awhile to build something ideal.
-
-The employee/manager dropdowns in the ShiftEditor (in the React frontend) can be a bit wonky. In theory they should work beautifully, but there seems to be a bug in the module I went with. Sometimes you have to play with it a bit to get the right user to appear.
+Editing the times and dates is done using a React module called DateTimePicker. 
 
 In the backend if you want to get this working, Symfony is going to need some additional components.  In particular, you should use composer to install the rest-bundle, the doctrine-cache-bundle, and a few other things:
 
