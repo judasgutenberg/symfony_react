@@ -29,7 +29,6 @@ class App extends Component {
     this.role = "";
   }
 
-
   componentWillMount(){
     var loginPage =[];
     loginPage.push(<LoginScreen appContext={this}/>);
@@ -45,8 +44,8 @@ class App extends Component {
     var request = require('superagent');
     console.log("showUserShifts",this.userId);
     var self = this;
-    var payload={};
-    axios.get(apiBaseUrl+'usershifts/' + this.userId, payload)
+    self.setState({contentScreen:this.loading});
+    axios.get(apiBaseUrl+'usershifts/' + this.userId, {})
    .then(function (response) {
      if(response.data.length>0){
        var shiftListLabel = "Your Shifts";
@@ -60,7 +59,6 @@ class App extends Component {
         //iterate through your shifts and display a Shift Module for each one
         for(var i=0; i<response.data.length; i++){
           shiftList.push(<Shift key={i} parentContext={this} appContext={self} data={response.data[i]}  role={self.role} userId={self.userId}/>);
-
         }
         self.setState({loginPage:[],contentScreen:shiftList})
         self.setState({contentDetails:[]})

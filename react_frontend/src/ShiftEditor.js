@@ -27,8 +27,8 @@ class ShiftEditor extends React.Component {
       this.state={
         manager_id:'',
         employee_id:'',
-        start_time:'',
-        end_time:'',
+        start_time:new Date(),
+        end_time:new Date(),
         break:''
       }
     }
