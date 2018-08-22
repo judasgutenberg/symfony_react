@@ -16,7 +16,7 @@ An employee login to try is gus@asecular.com/1111  .
 
 A manager login to try is oscarpoof@dribble.org/1111  .
 
-Log out by reloading the page (being logged in is just part of the React state;  there is no cookie or session).
+There is a logout button but you can also logout by reloading the page (being logged in is just part of the React state;  there is no cookie or session).
 
 The display of shifts is very basic. In a better system, there would be multiple views and calendars and such, but that would've taken awhile to get working nice. It's possible to create overlapping shifts for the same user.
 
