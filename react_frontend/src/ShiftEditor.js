@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
@@ -47,24 +47,19 @@ class ShiftEditor extends React.Component {
   }
 
   saveShift(event){
-    var butttonLabel = "My Shifts";
-    if(this.role=='manager') {
-      butttonLabel = "Shift Browser";
-    }
-
     var self = this;
     var managerId = this.state.manager_id;
     var employee_id = this.state.employee_id;
     var breakVal = this.state.break;
     //the backend does not like to get '' -- it wants null
-    if(managerId == '') {
+    if(managerId === '') {
       managerId = null;
     }
-    if(employee_id == '') {
+    if(employee_id === '') {
       employee_id = null;
     }
 
-    if(breakVal == '' || breakVal == null) {
+    if(breakVal === '' || breakVal === null) {
       breakVal = 0; //the backend doesn't like nulls for break
     }
     var payload={
@@ -84,7 +79,7 @@ class ShiftEditor extends React.Component {
     this.props.appContext.setState({contentDetails:self.props.appContext.loading})
 
     //i wish axios let me pass in push or post as a parameter instead of making me make two code blocks
-    if(restMethod == 'PUT') {
+    if(restMethod === 'PUT') {
         axios.put(fullUrl, payload)
        .then(function (response) {
          console.log(response);
@@ -118,21 +113,21 @@ class ShiftEditor extends React.Component {
   dropdownChange(event, value, type){
     //value is coming in as the ordinal of the option in the dropdown, so i have to do a lookup!
     var dataArray = this.data.employees;
-    if(type=='manager') {
+    if(type==='manager') {
       dataArray = this.data.managers
     }
     var foundValue = null;
     for(var i=0; i<dataArray.length; i++) {
-      if(i+1==value) { //have to add one because of the empty "option" at the beginning of the dropdown
+      if(i+1===value) { //have to add one because of the empty "option" at the beginning of the dropdown
           console.log(dataArray[i].name);
           foundValue = dataArray[i].id;
           break;
       }
     }
-    if(value=='null') {
+    if(value==='null') {
       foundValue = null;
     }
-    if(type=='manager') {
+    if(type==='manager') {
       this.setState({manager_id:foundValue});
     } else {
       this.setState({employee_id:foundValue});
@@ -147,7 +142,7 @@ class ShiftEditor extends React.Component {
     console.log(this.state);
     var manager_id = this.state.manager_id;
     if(!manager_id) {
-      this.state.manager_id = this.userId;
+      this.props.appContext.setState({manager_id:this.userId});
     }
 
     return (

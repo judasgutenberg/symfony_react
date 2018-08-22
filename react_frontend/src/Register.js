@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
@@ -24,7 +23,7 @@ class Register extends Component {
     // console.log("values in register handler",role);
     var self = this;
     //To be done:check for empty values before hitting submit
-    if(this.state.password2 != this.state.password) {
+    if(this.state.password2 !== this.state.password) {
       alert("Passwords must match!");
     } else {
       if(this.state.name.length>0  && this.state.password.length>0){
@@ -65,8 +64,6 @@ class Register extends Component {
     }
   }
   render() {
-    var userhintText,userLabel;
-
     return (
       <div>
         <MuiThemeProvider>

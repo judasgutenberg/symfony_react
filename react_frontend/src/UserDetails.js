@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import axios from 'axios';
+import React from 'react';
 
 class UserDetails extends React.Component {
   constructor(props) {

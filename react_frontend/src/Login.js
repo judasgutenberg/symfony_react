@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
 import Dashboard from './Dashboard';
 
@@ -74,7 +73,7 @@ class Login extends Component {
    .then(function (response) {
      console.log(response.data.code);
      console.log(response.data.user.id);
-     if(response.data.code == 200){
+     if(response.data.code === 200){
        console.log("Login successfull" + response.data.user.id);
        var contentScreen=[];
        self.props.appContext.userName = response.data.user.name;
@@ -83,7 +82,7 @@ class Login extends Component {
        //console.log(self.props.appContext.roleName );
        contentScreen.push(<Dashboard appContext={self.props.appContext} role={self.props.appContext.role} userId={response.data.user.id}/>)
        self.props.appContext.setState({loginPage:[],contentScreen:contentScreen})
-     } else if(response.data.code == 204){
+     } else if(response.data.code === 204){
        console.log("Email and password do not match");
        alert(response.data.error)
      } else {

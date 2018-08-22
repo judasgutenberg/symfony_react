@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
-import MenuItem from 'material-ui/MenuItem';
 import Shift from './Shift';
 
 class ShiftBrowseForm extends React.Component {
@@ -36,7 +35,6 @@ class ShiftBrowseForm extends React.Component {
     Usage:uses the date range to narrow the returned schedule data
   */
   narrowDateRange(event) {
-      var request = require('superagent');
       console.log("showUserShifts",this.userId);
       var self = this;
       self.props.appContext.setState({contentScreen:self.props.appContext.loading});
@@ -51,7 +49,7 @@ class ShiftBrowseForm extends React.Component {
           shiftList.push(<h2>{shiftListLabel}</h2>);
           //iterate through your shifts and display a Shift Module for each one
           for(var i=0; i<response.data.length; i++){
-            shiftList.push(<Shift key={i} parentContext={self.props.appContex} appContext={self.props.appContext} data={response.data[i]}  role='manager' userId={self.userId}/>);
+            shiftList.push(<Shift key={i} parentContext={self.props.appContex} appContext={self.props.appContext} data={response.data[i]}  roleName='manager' userId={self.userId}/>);
 
           }
           self.props.appContext.setState({loginPage:[],contentScreen:shiftList})

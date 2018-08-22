@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React from 'react';
 import axios from 'axios';
 import UserDetails from './UserDetails';
 
@@ -36,14 +34,14 @@ class ShiftDetail extends React.Component {
     if(this.data.employee && this.data.employee.name) {
       //employeeName=this.data.employee.name;
       employeeId=this.data.employee.id;
-      employeeName = <a href='#' class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
+      employeeName = <a class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
     }
     var managerName = 'None';
     if(this.data.manager && this.data.manager.name) {
       managerName=this.data.manager.name;
-      managerName = <a href='#' class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.manager.id)}>({this.data.manager.name})</a>;
+      managerName = <a class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.manager.id)}>({this.data.manager.name})</a>;
     }
-    if(employeeId == this.userId){ //don't show overlaps with self!
+    if(employeeId===this.userId){ //don't show overlaps with self!
       return null;
     }
     return (

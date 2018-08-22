@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import './App.css';
 import LoginScreen from './Loginscreen';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -31,7 +30,7 @@ class App extends Component {
 
   componentWillMount(){
     var loginPage =[];
-    loginPage.push(<LoginScreen appContext={this}/>);
+    loginPage.push(<LoginScreen key='1' appContext={this}/>);
     this.setState({loginPage:loginPage})
   }
 
@@ -41,7 +40,6 @@ class App extends Component {
     Usage:handles the getting of an employee's shifts
   */
   showUserShifts(event){
-    var request = require('superagent');
     console.log("showUserShifts",this.userId);
     var self = this;
     self.setState({contentScreen:this.loading});
@@ -50,7 +48,7 @@ class App extends Component {
      if(response.data.length>0){
        var shiftListLabel = "Your Shifts";
        console.log(self.role);
-       if(self.role == 'manager'){
+       if(self.role === 'manager'){
          shiftListLabel = "All Shifts";
        }
        console.log("got the shifts!");
@@ -79,7 +77,7 @@ class App extends Component {
     this.userId= "";
     this.role = "";
     var loginPage =[];
-    loginPage.push(<LoginScreen appContext={this}/>);
+    loginPage.push(<LoginScreen key='1' appContext={this}/>);
     this.setState({loginPage:loginPage})
     this.setState({contentDetails:[]})
     this.setState({contentScreen:[]})
@@ -87,7 +85,7 @@ class App extends Component {
 
   shiftBrowseForm(event){
     var self = this;
-    var shiftEditor = <ShiftBrowseForm  appContext={self} userId={self.userId}/>;
+    var shiftEditor = <ShiftBrowseForm appContext={self} userId={self.userId}/>;
     self.setState({contentDetails:shiftEditor})
     self.setState({contentScreen:[]})
   }
@@ -124,7 +122,7 @@ class App extends Component {
 
   render() {
     var butttonLabel = "My Shifts";
-    if(this.role=='manager') {
+    if(this.role==='manager') {
       butttonLabel = "Shift Browser";
     }
 
@@ -133,10 +131,10 @@ class App extends Component {
     var extraButton =
       <RaisedButton className='functionButton' label='Weekly Summary Report' primary={true}  onClick={(event) => this.weeklySummaryReport(event)}/>
 
-    if(this.userName!='') {
+    if(this.userName!=='') {
       title+=" for " + this.userName;
       title+=" (" + this.role + ")";
-      if(this.role=='manager'){
+      if(this.role==='manager'){
         extraButton =
         <span>
           <RaisedButton className='functionButton' label='Create Shift' primary={true}  onClick={(event) => this.createShift(event)}/>

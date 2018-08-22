@@ -1,14 +1,4 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import AppBar from 'material-ui/AppBar';
-import FontIcon from 'material-ui/FontIcon';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-
-import LoginScreen from './Loginscreen'
-import RaisedButton from 'material-ui/RaisedButton';
-import axios from 'axios';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -28,36 +18,7 @@ class Dashboard extends Component {
   this.setState({draweropen: !this.state.draweropen})
   }
 
-
-  handleMenuClick(event,page){
-    switch(page){
-      case "openprint":
-      // console.log("need to open uploadapge")
-      var currentScreen=[];
-     
-      this.setState({currentScreen})
-      break;
-      case "openpast":
-      // console.log("need to open pastfiles")
-      var currentScreen=[];
-
-      this.setState({currentScreen})
-      break;
-      case "logout":
-      var loginPage =[];
-      loginPage.push(<LoginScreen appContext={this.props.appContext}/>);
-      this.props.appContext.setState({loginPage:loginPage,contentScreen:[]})
-      break;
-    }
-    this.setState({draweropen:false})
-  }
-
-
   render() {
-    var butttonLabel = "My Shifts";
-    if(this.role=='manager') {
-      butttonLabel = "Shift Browser";
-    }
 
     return (
       <div className="App">

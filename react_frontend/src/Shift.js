@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
@@ -12,7 +12,7 @@ class Shift extends React.Component {
     super(props);
     this.data = props.data;
     this.userId = props.userId;
-    this.role = props.role;
+    this.role = props.roleName; //had to use roleName and not role because of some sort of namespace conflict
     this.shiftId = props.data.id;
   }
 
@@ -40,13 +40,10 @@ class Shift extends React.Component {
     or presents an editor to managers
   */
   showShiftDetailsOrEdit(event){
-    var request = require('superagent');
-    console.log("showUserShifts",this.shiftId);
-
     var self = this;
     var endPointAddendum = '';
-    if(self.role=='manager'){
-      var endPointAddendum = '/true'; //add /true to include a dump of all users for use in dropdowns
+    if(self.role==='manager'){
+      endPointAddendum = '/true'; //add /true to include a dump of all users for use in dropdowns
     }
 
     console.log(self.props.appContext.apiBaseUrl);
@@ -56,7 +53,7 @@ class Shift extends React.Component {
 
      if(response.data){
         console.log("got the shift details");
-        if(self.role=='manager'){
+        if(self.role==='manager'){
           console.log('patch in a shift editor here')
           var shiftEditor = <ShiftEditor  appContext={self.props.appContext} data={response.data} shiftId={self.shiftId} userId={self.userId}/>;
           self.props.appContext.setState({contentDetails:shiftEditor})
@@ -93,7 +90,6 @@ class Shift extends React.Component {
     //if we use .toString and cut off the timezone info, it will be off by however many hours GMT is
     //so we add the offset (which is in minutes) to the raw timestamp
     var dateObj = new Date(sqlDateString)
-    var offset =  dateObj.getTimezoneOffset();
     //offset += 300; //have to add 300 more to offset on production
     //console.log(offset);
     //dateObj.setTime(dateObj.getTime() + (offset*60*1000));
@@ -107,9 +103,9 @@ class Shift extends React.Component {
     var employeeName = '';
     var detailsButtonLabel = "Others Working"
     if(this.data && this.data.employee && this.data.employee.name){
-      employeeName = <a href='#' class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
+      employeeName = <a class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
     }
-    if(this.role=='manager') {
+    if(this.role==='manager') {
 
         detailsButtonLabel = "Edit"
     }
