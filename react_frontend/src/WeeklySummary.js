@@ -2,7 +2,6 @@ import React from 'react';
 
 class WeeklySummary extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.data = props.data;
     this.userId = props.userId;
@@ -28,13 +27,11 @@ class WeeklySummary extends React.Component {
   }
 
   render() {
-    console.log(this.data);
     var report = this.data.map((x,y)=>
       <tr key={y}>
       <td>{x.year}</td><td>{this.weekBegin(x.year,x.week)}</td><td>{x.total_hours}</td>
       </tr>
     )
-    console.log(report);
     return (
         <div className="weeklySummary">
         <h2>Your Weekly Summary</h2>

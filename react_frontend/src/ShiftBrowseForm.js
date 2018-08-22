@@ -7,7 +7,6 @@ import Shift from './Shift';
 
 class ShiftBrowseForm extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.userId = props.userId;
     this.state={
@@ -74,31 +73,33 @@ class ShiftBrowseForm extends React.Component {
         <h2>View Shifts In A Date Range</h2>
         <MuiThemeProvider>
           <table>
-          <tr className='labledFormRow'>
-          <td className='formLabel'>Start Date</td>
-          <td className='formInput'>
-            <DatePicker
+            <tbody>
+            <tr className='labledFormRow'>
+            <td className='formLabel'>Start Date</td>
+            <td className='formInput'>
+              <DatePicker
+                className = 'dateTimePicker'
+                value = {new Date(this.state.start_time)}
+                onChange = {(value) => this.setState({start_time:value})}
+                />
+            </td>
+            </tr>
+            <tr className='labledFormRow'>
+            <td className='formLabel'>End Date</td>
+            <td className='formInput'>
+              <DatePicker
               className = 'dateTimePicker'
-              value = {new Date(this.state.start_time)}
-              onChange = {(value) => this.setState({start_time:value})}
+              value = {new Date(this.state.end_time)}
+              onChange = {(value) => this.setState({end_time:value})}
               />
-          </td>
-          </tr>
-          <tr className='labledFormRow'>
-          <td className='formLabel'>End Date</td>
-          <td className='formInput'>
-            <DatePicker
-            className = 'dateTimePicker'
-            value = {new Date(this.state.end_time)}
-            onChange = {(value) => this.setState({end_time:value})}
-            />
-          </td>
-          </tr>
-          <tr colspan='2'>
-          <td>
-           <RaisedButton label="Show" primary={true} style={style} onClick={(event) => this.narrowDateRange(event)}/>
-          </td>
-          </tr>
+            </td>
+            </tr>
+            <tr colSpan='2'>
+            <td>
+             <RaisedButton label="Show" primary={true} style={style} onClick={(event) => this.narrowDateRange(event)}/>
+            </td>
+            </tr>
+          </tbody>
          </table>
          </MuiThemeProvider>
          </div>

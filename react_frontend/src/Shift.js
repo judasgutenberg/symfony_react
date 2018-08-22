@@ -8,7 +8,7 @@ import UserDetails from './UserDetails';
 
 class Shift extends React.Component {
   constructor(props) {
-    console.log(props);
+    //console.log(props);
     super(props);
     this.data = props.data;
     this.userId = props.userId;
@@ -59,13 +59,13 @@ class Shift extends React.Component {
           self.props.appContext.setState({contentDetails:shiftEditor})
         } else {
           let shiftDetails=[];
-          shiftDetails.push(<h2>Others Working In This Shift</h2>);
+          shiftDetails.push(<h2 key={-1}>Others Working In This Shift</h2>);
           //iterate through your shifts and display a Shift Module for each one
           if(response.data.overlaps.length<1) {
             shiftDetails = <div className='message'>There are no others working during your shift.</div>
           }
           for(var i=0; i<response.data.overlaps.length; i++){
-            shiftDetails.push(<ShiftDetail parentContext={this} appContext={self.props.appContext} data={response.data.overlaps[i]}  userId={self.userId}/>);
+            shiftDetails.push(<ShiftDetail key={i} parentContext={this} appContext={self.props.appContext} data={response.data.overlaps[i]}  userId={self.userId}/>);
           }
           //self.props.appContext.setState({loginPage:[],contentScreen:shiftDetails})
           self.props.appContext.setState({contentDetails:shiftDetails})
@@ -99,11 +99,11 @@ class Shift extends React.Component {
 
 
   render() {
-    console.log(this.data);
+    //console.log(this.data);
     var employeeName = '';
     var detailsButtonLabel = "Others Working"
     if(this.data && this.data.employee && this.data.employee.name){
-      employeeName = <a class='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
+      employeeName = <a className='userInfoLink' onClick={(event)=>this.showUserInfo(event, this.data.employee.id)}>({this.data.employee.name})</a>;
     }
     if(this.role==='manager') {
 
@@ -117,7 +117,7 @@ class Shift extends React.Component {
         <div className="shift">
           <div>
 
-          <span class='dateRange'>{this.displayDate(this.data.start_time)}  to  {this.displayDate(this.data.end_time)}</span>
+          <span className='dateRange'>{this.displayDate(this.data.start_time)}  to  {this.displayDate(this.data.end_time)}</span>
           {employeeName}
           </div>
         </div>

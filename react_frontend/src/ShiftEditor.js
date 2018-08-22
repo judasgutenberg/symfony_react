@@ -10,7 +10,6 @@ import DateTimePicker from 'react-datetime-picker';
 class ShiftEditor extends React.Component {
 
   constructor(props) {
-    console.log(props);
     super(props);
     this.data = props.data;
     this.shiftSaved  = <div className='message'>Shift Saved!</div>;
@@ -25,7 +24,7 @@ class ShiftEditor extends React.Component {
       }
     } else {
       this.state={
-        manager_id:'',
+        manager_id:this.userId, //default to the current logged-in user, who will be a manager
         employee_id:'',
         start_time:new Date(),
         end_time:new Date(),
@@ -139,11 +138,6 @@ class ShiftEditor extends React.Component {
     const style = {
       margin: 15,
     };
-    console.log(this.state);
-    var manager_id = this.state.manager_id;
-    if(!manager_id) {
-      this.props.appContext.setState({manager_id:this.userId});
-    }
 
     return (
         //the mix of different sources of inputs made this easiest to format as a classic html table
@@ -151,61 +145,63 @@ class ShiftEditor extends React.Component {
         <h2>Shift Editor</h2>
         <MuiThemeProvider>
           <table>
-            <tr className='labledFormRow'>
-             <td className='formLabel'>Manager</td>
-             <td className='formInput'>
-            <DropDownMenu className='userDropdown'  value={this.state.manager_id} onChange={(event,newValue) => {this.dropdownChange(event, newValue, 'manager')}}>
-              <MenuItem value={null} key='none' primaryText='none' />
-              {this.data.managers.map((x,y)=><MenuItem key={'key'+y} value={x.id} primaryText={x.name} />)}
-            </DropDownMenu>
-            </td>
-          </tr>
-          <tr className='labledFormRow'>
-           <td className='formLabel'>Employee</td>
-           <td className='formInput'>
-           <DropDownMenu className='userDropdown'  value={this.state.employee_id} onChange={(event,newValue) => {this.dropdownChange(event, newValue, 'employee')}}>
-              <MenuItem value={null} key='none' primaryText='none' />
-             {this.data.employees.map((x,y)=><MenuItem key={'key'+y} value={x.id} primaryText={x.name} />)}
-           </DropDownMenu>
-           </td>
-           </tr>
-           <tr className='labledFormRow'>
-            <td className='formLabel'>Break</td>
-            <td className='formInput'>
-             <TextField
-              className = 'breakInput'
-               hintText="I'm not really clear what break is and why it's a float!"
-               value = {this.state.break}
-               onChange = {(event,newValue) => this.setState({break:newValue})}
-               />
-            </td>
+            <tbody>
+              <tr className='labledFormRow'>
+               <td className='formLabel'>Manager</td>
+               <td className='formInput'>
+              <DropDownMenu className='userDropdown'  value={this.state.manager_id} onChange={(event,newValue) => {this.dropdownChange(event, newValue, 'manager')}}>
+                <MenuItem value={null} key='none' primaryText='none' />
+                {this.data.managers.map((x,y)=><MenuItem key={'key'+y} value={x.id} primaryText={x.name} />)}
+              </DropDownMenu>
+              </td>
             </tr>
-           <tr className='labledFormRow'>
-           <td className='formLabel'>Start Time</td>
-           <td className='formInput'>
-             <DateTimePicker
-               className = 'dateTimePicker'
-               value = {new Date(this.state.start_time)}
-               onChange = {(value) => this.setState({start_time:value})}
-               />
+            <tr className='labledFormRow'>
+             <td className='formLabel'>Employee</td>
+             <td className='formInput'>
+             <DropDownMenu className='userDropdown'  value={this.state.employee_id} onChange={(event,newValue) => {this.dropdownChange(event, newValue, 'employee')}}>
+                <MenuItem value={null} key='none' primaryText='none' />
+               {this.data.employees.map((x,y)=><MenuItem key={'key'+y} value={x.id} primaryText={x.name} />)}
+             </DropDownMenu>
+             </td>
+             </tr>
+             <tr className='labledFormRow'>
+              <td className='formLabel'>Break</td>
+              <td className='formInput'>
+               <TextField
+                className = 'breakInput'
+                 hintText="I'm not really clear what break is and why it's a float!"
+                 value = {this.state.break}
+                 onChange = {(event,newValue) => this.setState({break:newValue})}
+                 />
+              </td>
+              </tr>
+             <tr className='labledFormRow'>
+             <td className='formLabel'>Start Time</td>
+             <td className='formInput'>
+               <DateTimePicker
+                 className = 'dateTimePicker'
+                 value = {new Date(this.state.start_time)}
+                 onChange = {(value) => this.setState({start_time:value})}
+                 />
 
-           </td>
-           </tr>
-           <tr className='labledFormRow'>
-           <td className='formLabel'>End Time</td>
-           <td className='formInput'>
-             <DateTimePicker
-             className = 'dateTimePicker'
-             value = {new Date(this.state.end_time)}
-             onChange = {(value) => this.setState({end_time:value})}
-             />
-           </td>
-           </tr>
-           <tr colspan='2'>
-           <td>
-            <RaisedButton label="Save Shift" primary={true} style={style} onClick={(event) => this.saveShift(event)}/>
-           </td>
-           </tr>
+             </td>
+             </tr>
+             <tr className='labledFormRow'>
+             <td className='formLabel'>End Time</td>
+             <td className='formInput'>
+               <DateTimePicker
+               className = 'dateTimePicker'
+               value = {new Date(this.state.end_time)}
+               onChange = {(value) => this.setState({end_time:value})}
+               />
+             </td>
+             </tr>
+             <tr colSpan='2'>
+             <td>
+              <RaisedButton label="Save Shift" primary={true} style={style} onClick={(event) => this.saveShift(event)}/>
+             </td>
+             </tr>
+           </tbody>
           </table>
          </MuiThemeProvider>
         </div>

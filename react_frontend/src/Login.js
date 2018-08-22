@@ -41,7 +41,7 @@ class Login extends Component {
   componentWillMount(){
     var localloginComponent=[];
     localloginComponent.push(
-      <MuiThemeProvider>
+      <MuiThemeProvider key='t1'>
         <div>
          <TextField
            floatingLabelText="Email"
@@ -71,16 +71,14 @@ class Login extends Component {
     }
     axios.post(self.props.appContext.apiBaseUrl+'user/login', payload)
    .then(function (response) {
-     console.log(response.data.code);
-     console.log(response.data.user.id);
      if(response.data.code === 200){
-       console.log("Login successfull" + response.data.user.id);
+       console.log("Login successfull, userId:" + response.data.user.id);
        var contentScreen=[];
        self.props.appContext.userName = response.data.user.name;
        self.props.appContext.userId = response.data.user.id;
        self.props.appContext.role = response.data.user.role;
        //console.log(self.props.appContext.roleName );
-       contentScreen.push(<Dashboard appContext={self.props.appContext} role={self.props.appContext.role} userId={response.data.user.id}/>)
+       contentScreen.push(<Dashboard key={1} appContext={self.props.appContext} role={self.props.appContext.role} userId={response.data.user.id}/>)
        self.props.appContext.setState({loginPage:[],contentScreen:contentScreen})
      } else if(response.data.code === 204){
        console.log("Email and password do not match");

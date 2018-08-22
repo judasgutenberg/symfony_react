@@ -13,7 +13,7 @@ class Loginscreen extends Component {
     super(props);
     var loginButtons=[];
     loginButtons.push(
-      <div>
+      <div key='t2'>
       <MuiThemeProvider>
         <div>
            <RaisedButton label={"Register as Employee"} primary={true} style={style} onClick={(event) => this.handleClick(event,'employee')}/>
@@ -39,7 +39,7 @@ class Loginscreen extends Component {
   }
   componentWillMount(){
     var loginscreen=[];
-    loginscreen.push(<Login parentContext={this} appContext={this.props.appContext}/>);
+    loginscreen.push(<Login key='l1' parentContext={this} appContext={this.props.appContext}/>);
     var loginmessage = "Need to register?";
     this.setState({
                   loginscreen:loginscreen,

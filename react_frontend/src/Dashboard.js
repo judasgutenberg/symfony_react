@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class Dashboard extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.userId = props.userId;
     this.role = props.role;

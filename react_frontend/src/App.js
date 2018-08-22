@@ -40,20 +40,18 @@ class App extends Component {
     Usage:handles the getting of an employee's shifts
   */
   showUserShifts(event){
-    console.log("showUserShifts",this.userId);
     var self = this;
     self.setState({contentScreen:this.loading});
     axios.get(apiBaseUrl+'usershifts/' + this.userId, {})
    .then(function (response) {
      if(response.data.length>0){
        var shiftListLabel = "Your Shifts";
-       console.log(self.role);
        if(self.role === 'manager'){
          shiftListLabel = "All Shifts";
        }
        console.log("got the shifts!");
         let shiftList=[];
-        shiftList.push(<h2>{shiftListLabel}</h2>);
+        shiftList.push(<h2 key={-1}>{shiftListLabel}</h2>);
         //iterate through your shifts and display a Shift Module for each one
         for(var i=0; i<response.data.length; i++){
           shiftList.push(<Shift key={i} parentContext={this} appContext={self} data={response.data[i]}  role={self.role} userId={self.userId}/>);
@@ -107,7 +105,6 @@ class App extends Component {
 
   weeklySummaryReport(event){
     var self = this;
-    console.log(self.apiBaseUrl);
     self.setState({contentDetails:this.loading});
     axios.get(self.apiBaseUrl + 'user/weeklysummary/' + this.userId)
      .then(function (response) {
@@ -142,11 +139,17 @@ class App extends Component {
         </span>
       }
       showShiftsButton =
-        <MuiThemeProvider>
-          <RaisedButton className='functionButton' label='Logout' primary={true}  onClick={(event) => this.logOut(event)}/>
-          <RaisedButton className='functionButton' label={butttonLabel} primary={true}  onClick={(event) => this.showUserShifts(event)}/>
+        <span>
+          <MuiThemeProvider>
+            <RaisedButton className='functionButton' label='Logout' primary={true}  onClick={(event) => this.logOut(event)}/>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <RaisedButton className='functionButton' label={butttonLabel} primary={true}  onClick={(event) => this.showUserShifts(event)}/>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
            {extraButton}
-        </MuiThemeProvider>
+          </MuiThemeProvider>
+        </span>
     }
 
     return (
