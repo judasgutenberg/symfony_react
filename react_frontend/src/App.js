@@ -119,6 +119,7 @@ class App extends Component {
           console.log("got the weekly summary report!!");
         var summary = <WeeklySummary  appContext={self} data={response.data} userId={self.userId}/>;
         self.setState({contentDetails:summary})
+        self.setState({contentScreen:[]})
       }
     });
   }

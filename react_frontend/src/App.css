@@ -14,6 +14,9 @@ a:active {
     color: #006600;
 }
 
+.breakInput{
+  width:1000px
+}
 
 .App {
   text-align: center;
@@ -29,76 +32,8 @@ a:active {
   margin-right:15px;
 }
 
-.functionButton {
-  margin-top:10px;
-  margin-left:5px;
-  margin-right:5px;
-}
-
-.message {
-  border-style: solid; border-width:1px; border-radius:12px;
-  font-size:18px;
-  width:400px;
-  margin:auto;
-  margin-top:20px;
-  margin-bottom:20px;
-  padding: 10px;
-  background-color:#e2f2f2;
-  color: #cccccc;
-}
-
-th {
-  font-weight: bold;
-  padding-right: 10px;
-  background-color: #e2f2f2;
-}
-
-td {
-  font-weight: unset;
-  padding-right: 10px;
-}
-
-.shiftContainer{
-  text-align:left;
-  border-style: solid; border-width:1px; border-radius:3px;
-  background-color: #eef8ff;
-  margin-top:10px;
-}
-.shift {
-  display:inline-block;
-  text-align:right;
-  padding-right:10px;
-  max-width: 80%
-}
-
-.shiftDetailButton {
-  vertical-align:top;
-  margin-right:20px;
-  padding:2px;
-  font-size:10px;
-}
-
-.shiftEditor {
-  border-style: solid; border-width:1px; border-radius:3px; border-color:#0066ff;background-color: #eeffff;
-
-}
-
-.userDropdown{
- height:20px;
- margin-left:-20px;
-}
-
-.shiftEditor{
-
-  width:600px;
-  margin:auto;
-  margin-top:10px;
-}
-
-.labledFormRow{
- height: 40px;
-
- margin:right;
+.dateTimePicker{
+  margin-top:15px
 }
 
 .formInput{
@@ -116,20 +51,75 @@ td {
   width:100px
 }
 
-
-.breakInput{
-  width:1000px
-}
-
-.dateTimePicker{
-  margin-top:15px
-
+.functionButton {
+  margin-top:10px;
+  margin-left:5px;
+  margin-right:5px;
 }
 
 h2 {
   font-weight:bold;
   font-size:16px;
   letter-spacing: 4px;
+}
+
+.labledFormRow{
+ height: 40px;
+ margin:right;
+}
+
+.message {
+  border-style: solid; border-width:1px; border-radius:12px;
+  font-size:18px;
+  width:400px;
+  margin:auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  padding: 10px;
+  background-color:#e2f2f2;
+  color: #cccccc;
+}
+
+.shift {
+  display:inline-block;
+  text-align:right;
+  padding-right:10px;
+  max-width: 80%
+}
+
+.shiftContainer{
+  text-align:left;
+  border-style: solid; border-width:1px; border-radius:3px;
+  background-color: #eef8ff;
+  margin-top:10px;
+}
+
+.shiftDetailButton {
+  vertical-align:top;
+  margin-right:20px;
+  padding:2px;
+  font-size:10px;
+}
+
+.shiftEditor {
+  border-style: solid; border-width:1px; border-radius:3px; border-color:#0066ff;background-color: #eeffff;
+
+}
+
+td {
+  font-weight: unset;
+  padding-right: 10px;
+}
+
+th {
+  font-weight: bold;
+  padding-right: 10px;
+  background-color: #e2f2f2;
+}
+
+.userDropdown{
+ height:20px;
+ margin-left:-20px;
 }
 
 .userInfoLink{
@@ -139,6 +129,6 @@ h2 {
 }
 
 .weeklySummary{
-
-
+ width:80%;
+ margin:auto;
 }
