@@ -55,5 +55,7 @@ http://sched.randomsprocket.com/api/user/1
 
 http://sched.randomsprocket.com/api/user/weeklysummary/1
 
+I can't say that writing this code made me a particular fan of either Symphony or React.
+
 
 --Gus Mueller, August 18 2018
